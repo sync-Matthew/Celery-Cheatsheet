@@ -117,7 +117,7 @@ From `sudo nano /etc/redis/redis.conf` find the supervised directive. Change it 
 #                        UPSTART_JOB or NOTIFY_SOCKET environment variables
 # Note: these supervision methods only signal "process is ready."
 #       They do not enable continuous liveness pings back to your supervisor.
-<mark>supervised systemd</mark>
+supervised systemd
 
 . . .
 ```  
