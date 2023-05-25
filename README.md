@@ -18,7 +18,7 @@ How to: Add Celery to a Django project. Development and Production versions.
 `sudo apt install redis`  
 
 3. From `your_project/your_app` create a new file called `celery.py` and paste the following contents:  
-```
+```python
 import os
 
 from celery import Celery
@@ -41,7 +41,7 @@ app.autodiscover_tasks()
 
 4. Add your Redis broker to `your_app/settings.py`:  
 
-```
+```python
 # your_app/settings.py
 
 # ...
@@ -53,7 +53,7 @@ CELERY_RESULT_BACKEND = "redis://localhost:6379"
 
 5. Edit `your_app/init.py`:  
 
-```
+```python
 # This will make sure the app is always imported when
 # Django starts so that shared_task will use this app.
 from .celery import app as celery_app
@@ -70,7 +70,7 @@ __all__ = ('celery_app',)
 
 1. From `some_other_app`, create a new file called `tasks.py`:  
 
-```
+```python
 from celery import shared_task
 
 @shared_task
@@ -80,7 +80,7 @@ def add(x, y):
 
 2. From `some_other_app/views.py`, import and use your new task:  
 
-```
+```python
 from .tasks import add
 
 def run_task(request):
@@ -105,7 +105,7 @@ The output should look something like this:
 `sudo apt install redis-server`  
 
 From `sudo nano /etc/redis/redis.conf` find the supervised directive. Change it from ___ to `supervised systemd`:  
-```
+```conf
 . . .
 
 # If you run Redis from upstart or systemd, Redis can interact with your
@@ -135,7 +135,7 @@ From `/etc/systemd/system/` run the command:
 
 Paste the following contents into `/etc/systemd/system/celery.service`:  
 
-```
+```service
 [Unit]
 Description=Celery Service
 After=network.target
